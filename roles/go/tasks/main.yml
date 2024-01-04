@@ -1,0 +1,37 @@
+---
+- name: Download Go archive
+  get_url:
+    url: "https://golang.org/dl/go{{ go_version }}.{{ go_arch }}.tar.gz"
+    dest: "/tmp/go.tar.gz"
+    validate_certs: yes
+
+- name: Extract Go archive
+  ansible.builtin.unarchive:
+    src: "/tmp/go.tar.gz"
+    dest: "/usr/local"
+    remote_src: yes
+
+- name: Handle Symbolic Link ignore_errors
+  block:
+    - name: Create symbolic links for Go binaries
+      ansible.builtin.command:
+        cmd: "ln -s /usr/local/go/bin/go /usr/local/bin/go"
+  rescue:
+    - name: Print when errors
+      ansible.builtin.debug:
+        msg: "Error Caught"
+
+- name: Add Go binary path to PATH
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "export PATH=$PATH:/usr/local/go/bin"
+
+- name: Add Go installed apps path
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "export PATH=$PATH:{{ansible_env.HOME}}/go/bin"
+
+- name: Source .bashrc to apply changes
+  shell: "source {{ ansible_env.HOME }}/.bashrc"
+  args:
+    executable: /bin/bash

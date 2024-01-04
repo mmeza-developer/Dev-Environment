@@ -1,0 +1,30 @@
+---
+- name: "Customizing Dev Environment"
+  hosts: localhost
+  connection: local
+
+  vars:
+    node_version: "20.10.0"
+    node_arch: "x64"
+    go_version: "1.21.5"
+    go_arch: "linux-amd64"
+
+
+  roles:
+    - {role: docker, become: yes}
+    - {role: go , become: yes}
+    - {role: node , become: yes}
+    - role: gantsign.visual-studio-code
+      users:
+        - username: "{{ ansible_user_id }}" 
+          visual_studio_code_extensions:
+            - streetsidesoftware.code-spell-checker
+            - ms-python.python
+            - golang.Go
+            - ms-vscode.vscode-typescript-next
+            - bradlc.vscode-tailwindcss
+            - mads-hartmann.bash-ide-vscode
+            - DEVSENSE.phptools-vscode
+            - snyk-security.snyk-vulnerability-scanner
+            - redhat.vscode-yaml
+    - role: vscode-settings

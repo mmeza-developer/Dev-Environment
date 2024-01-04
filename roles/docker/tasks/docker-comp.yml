@@ -1,0 +1,7 @@
+- name: Download Docker Compose binary
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/v{{ compose_version }}/docker-compose-{{ ansible_system | lower }}-{{ ansible_machine }}"
+    dest: "/usr/local/bin/docker-compose"
+    mode: '0755'
+    validate_certs: yes
+  when: ansible_os_family == 'Debian'

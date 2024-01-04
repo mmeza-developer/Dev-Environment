@@ -1,0 +1,50 @@
+---
+- name: Install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg-agent
+    - software-properties-common
+  when: ansible_os_family == 'Debian'
+
+- name: Add Docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+  when: ansible_os_family == 'Debian'
+
+- name: Add Docker APT repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+  when: ansible_os_family == 'Debian'
+
+- name: Update APT package cache
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install Docker
+  package:
+    name: docker-ce
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install Docker on Red Hat based systems
+  yum:
+    name: docker-ce
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+
+- name: Add user to the docker group
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes
