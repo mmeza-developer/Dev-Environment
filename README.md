@@ -1,6 +1,8 @@
 # Ansible Dev Environment
 
-Installed Software:
+This is a simple Ansible Playbook for My Development Environment
+
+Software to be installed:
 
 - Docker
 - Docker-compose
@@ -18,7 +20,7 @@ Installed Software:
     - Extension: snyk-security.snyk-vulnerability-scanner
     - My hotkeys
 
-This is a simple Ansible Playbook for My Development Environment
+
 
 To run this playbook use the following command:
 
