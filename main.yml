@@ -24,7 +24,6 @@
             - ms-vscode.vscode-typescript-next
             - bradlc.vscode-tailwindcss
             - mads-hartmann.bash-ide-vscode
-            - DEVSENSE.phptools-vscode
             - snyk-security.snyk-vulnerability-scanner
             - redhat.vscode-yaml
     - role: vscode-settings
