@@ -8,12 +8,16 @@
     node_arch: "x64"
     go_version: "1.21.5"
     go_arch: "linux-amd64"
+    dbeaver_deb_url: "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
+    dbeaver_deb_file: "/tmp/dbeaver-ce_latest_amd64.deb"
 
 
   roles:
     - {role: docker, become: yes}
     - {role: go , become: yes}
     - {role: node , become: yes}
+    - {role: tmux , become: yes}
+    - {role: dbeaver , become: yes}
     - role: gantsign.visual-studio-code
       users:
         - username: "{{ ansible_user_id }}" 

@@ -1,0 +1,17 @@
+---
+- name: Download DBeaver DEB file
+  get_url:
+    url: "{{ dbeaver_deb_url }}"
+    dest: "{{ dbeaver_deb_file }}"
+    mode: 0644
+
+- name: Install DBeaver from DEB file
+  apt:
+    deb: "{{ dbeaver_deb_file }}"
+    state: present
+  become: true
+
+- name: Remove downloaded DEB file
+  file:
+    path: "{{ dbeaver_deb_file }}"
+    state: absent
