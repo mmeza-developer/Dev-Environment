@@ -10,6 +10,7 @@
     go_arch: "linux-amd64"
     dbeaver_deb_url: "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
     dbeaver_deb_file: "/tmp/dbeaver-ce_latest_amd64.deb"
+    compose_version: 2.23.3
 
 
   roles:
