@@ -9,6 +9,7 @@ Software to be installed:
 - Node
 - Go
 - tmux
+- dbeaver
 - VisualStudio Code
     - Extension: streetsidesoftware.code-spell-checker
     - Extension: ms-python.python
