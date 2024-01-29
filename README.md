@@ -21,7 +21,11 @@ Software to be installed:
     - Extension: snyk-security.snyk-vulnerability-scanner
     - My hotkeys
 
+Install Requeriments
 
+~~~bash
+ansible-galaxy install -r requirements.yml
+~~~
 
 To run this playbook use the following command:
 
