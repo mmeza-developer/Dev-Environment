@@ -14,21 +14,21 @@
 
 
   roles:
-   # - {role: docker, become: yes}
-   # - {role: go , become: yes}
+    - {role: docker, become: yes}
+    - {role: go , become: yes}
     - {role: node , become: yes}
-   # - {role: tmux , become: yes}
-   # - {role: dbeaver , become: yes}
-   # - role: gantsign.visual-studio-code
-   #   users:
-   #     - username: "{{ ansible_user_id }}" 
-   #       visual_studio_code_extensions:
-   #         - streetsidesoftware.code-spell-checker
-   #         - ms-python.python
-   #         - golang.Go
-   #         - ms-vscode.vscode-typescript-next
-   #         - bradlc.vscode-tailwindcss
-   #         - mads-hartmann.bash-ide-vscode
-   #         - snyk-security.snyk-vulnerability-scanner
-   #         - redhat.vscode-yaml
-   # - role: vscode-settings
+    - {role: tmux , become: yes}
+    - {role: dbeaver , become: yes}
+    - role: gantsign.visual-studio-code
+      users:
+        - username: "{{ ansible_user_id }}" 
+          visual_studio_code_extensions:
+            - streetsidesoftware.code-spell-checker
+            - ms-python.python
+            - golang.Go
+            - ms-vscode.vscode-typescript-next
+            - bradlc.vscode-tailwindcss
+            - mads-hartmann.bash-ide-vscode
+            - snyk-security.snyk-vulnerability-scanner
+            - redhat.vscode-yaml
+    - role: vscode-settings
