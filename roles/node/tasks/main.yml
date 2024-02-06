@@ -1,21 +1,19 @@
 ---
-- name: Download Node.js archive
-  get_url:
-    url: "https://nodejs.org/dist/v{{ node_version }}/node-v{{ node_version }}-linux-{{ node_arch }}.tar.gz"
-    dest: "/tmp/node.tar.gz"
-    validate_certs: yes
-
-- name: Extract Node.js archive
-  ansible.builtin.unarchive:
-    src: "/tmp/node.tar.gz"
-    dest: "/usr/local"
-    remote_src: yes
-
-- name: Handle Symbolic Link ignore_errors
+- name: Handle errors in NodeJS installing
   block:
-    - name: Create symbolic links for Node.js binaries
-      ansible.builtin.command:
-        cmd: "ln -s /usr/local/node-v{{ node_version }}-linux-{{ node_arch }}/bin/node /usr/local/bin/node"
+    - name: Add NodeJS to APT Repositories
+      ansible.builtin.command: "{{ item }}"
+      loop: 
+        - "wget https://deb.nodesource.com/setup_21.x -O /tmp/setup_21.x"
+        - "chmod +x /tmp/setup_21.x"
+        - "/tmp/setup_21.x"
+        - "rm /tmp/setup_21.x"
+
+    - name: Install NodeJS
+      package:
+        name: nodejs
+        state: present
+      when: ansible_os_family == 'Debian'
   rescue:
    - name: Print when errors
      ansible.builtin.debug:
