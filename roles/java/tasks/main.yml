@@ -1,0 +1,30 @@
+---
+- name: Download Java archive
+  get_url:
+    url: "https://download.oracle.com/java/{{java_version17}}/latest/{{java_arch17}}.deb"
+    dest: "/tmp/java_{{java_arch17}}.deb"
+    validate_certs: yes
+
+- name: Install Java deb files
+  ansible.builtin.apt:
+    deb: "/tmp/java_{{java_arch17}}.deb"
+
+- name: Download Java archive
+  get_url:
+    url: "https://download.oracle.com/java/{{java_version21}}/latest/{{java_arch21}}.deb"
+    dest: "/tmp/java_{{java_arch21}}.deb"
+    validate_certs: yes
+
+- name: Install Java deb files
+  ansible.builtin.apt:
+    deb: "/tmp/java_{{java_arch21}}.deb"
+
+- name: Add JAVA_HOME Env
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "export JAVA_HOME=/usr/lib/jvm/{{java_arch21}}"
+
+- name: Source .bashrc to apply changes
+  shell: "source {{ ansible_env.HOME }}/.bashrc"
+  args:
+    executable: /bin/bash

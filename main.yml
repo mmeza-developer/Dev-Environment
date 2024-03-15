@@ -8,6 +8,10 @@
     node_arch: "x64"
     go_version: "1.21.5"
     go_arch: "linux-amd64"
+    java_version21: "21"
+    java_arch21: "jdk-21_linux-x64_bin"
+    java_version17: "17"
+    java_arch17: "jdk-17_linux-x64_bin"
     dbeaver_deb_url: "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
     dbeaver_deb_file: "/tmp/dbeaver-ce_latest_amd64.deb"
     compose_version: 2.23.3
@@ -16,6 +20,7 @@
   roles:
     - {role: docker, become: yes}
     - {role: go , become: yes}
+    - {role: java , become: yes}
     - {role: node , become: yes}
     - {role: tmux , become: yes}
     - {role: dbeaver , become: yes}
@@ -31,4 +36,6 @@
             - mads-hartmann.bash-ide-vscode
             - snyk-security.snyk-vulnerability-scanner
             - redhat.vscode-yaml
+            - vscjava.vscode-java-pack
+            - redhat.ansible
     - role: vscode-settings
