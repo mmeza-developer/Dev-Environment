@@ -7,7 +7,8 @@ Software to be installed:
 - Docker
 - Docker-compose
 - Node
-- Go
+- GoLang
+- Java & Maven
 - tmux
 - dbeaver
 - VisualStudio Code

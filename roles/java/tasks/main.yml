@@ -22,7 +22,40 @@
 - name: Add JAVA_HOME Env
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
-    line: "export JAVA_HOME=/usr/lib/jvm/{{java_arch21}}"
+    line: "export JAVA_HOME=/usr/lib/jvm/jdk-{{java_version21}}-oracle-x64"
+
+- name: Source .bashrc to apply changes
+  shell: "source {{ ansible_env.HOME }}/.bashrc"
+  args:
+    executable: /bin/bash
+
+
+- name: Download Maven archive
+  get_url:
+    url: "https://dlcdn.apache.org/maven/maven-3/{{maven_version}}/binaries/apache-maven-{{maven_version}}-bin.zip"
+    dest: "/tmp/apache-maven-{{maven_version}}-bin.zip"
+    validate_certs: yes
+
+- name: Creates Maven directory
+  file:
+    path: "{{ansible_env.HOME}}/maven"
+    state: directory
+
+- name: Install Maven files
+  ansible.builtin.unarchive:
+    src: "/tmp/apache-maven-{{maven_version}}-bin.zip"
+    dest: "{{ansible_env.HOME}}/maven"
+
+- name: Add M2_HOME Env
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "export M2_HOME={{ansible_env.HOME}}/maven/apache-maven-{{maven_version}}"
+
+
+- name: Add Maven Bin to the Path Env
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "export PATH={{ansible_env.HOME}}/maven/apache-maven-{{maven_version}}/bin:$PATH"
 
 - name: Source .bashrc to apply changes
   shell: "source {{ ansible_env.HOME }}/.bashrc"
